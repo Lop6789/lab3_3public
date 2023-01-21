@@ -5,24 +5,41 @@
 template <class T>
 class Edge{
     private:
-        // int id
+        int id
         T weight;
         T data; 
         Edge* start,
         Edge* end;
+
+    public:
+        int GetId() const {
+            return id;
+        }
+
+        const T& GetData() const {
+            return data;
+        }
+
 };
 
 template <class T>
 class Vertex{
     private:
-        // int id;
+        int id;
+
+    public:
+
+    int GetId() const {
+        return id;
+    }
+
 
 };
 
 template <class TVertex, class TEdge >
 class IncList{
     private:
-        Sequence<IMap<TVertex, LinkedListSeq<TEdge>>> map;
+        IMap<TVertex, LinkedListSeq<TEdge>> map;
     public:
 
 };
@@ -33,6 +50,9 @@ class OrGrapgh{
         IncList<TVertex, TEdge> inclist;
 
     public:
+        OrGrapgh(){
+            
+        }
 
 
 };

@@ -6,67 +6,58 @@
 template <class T>
 class LinkedListSequence : public Sequence<T> {
     private:
-        LinkedList<T>* list;
+        LinkedList<T> list;
 
     public:
-        LinkedListSequence(){
-            list = new LinkedList<T>();
+        LinkedListSequence(){}
+
+        LinkedListSequence(T* items, int size) : list(items, size){}
+
+        LinkedListSequence(LinkedListSequence<T>& listseq) : list(listseq.list){}
+
+        LinkedListSequence(LinkedList<T>& list) : list(list){}
+
+        ~LinkedListSequence(){}
+
+        T& Get (int index) const override{
+            return list.Get(index);
         }
 
-        LinkedListSequence(T* items, int size){
-            list = new LinkedList<T>(items, size);
+        T& GetFirst() const override{
+            return list.GetFirst();
         }
 
-        LinkedListSequence(LinkedListSequence<T>& listseq){
-            this->list = new LinkedList<T>(*(listseq.list));
+        T& GetLast() const override{
+            return list.GetLast();
         }
 
-        LinkedListSequence(LinkedList<T>& list){
-            this->list = new LinkedList<T>(list);
+        Sequence<T>* GetSubsequence(int startIndex, int endIndex) const override{
+            // return (Sequence<T>*) (new LinkedListSequence<T>(*(list->GetSubList(startIndex, endIndex))));
+            return (Sequence<T>*) (list.GetSubList(startIndex, endIndex));
         }
 
-        ~LinkedListSequence(){
-            delete list;
+        int GetLength() const override{
+            return list.GetLength();
         }
 
-        T Get (int index) override{
-            return list->Get(index);
+        int IndexOf(const T& item) const override{
+            return list.IndexOf(item);
         }
 
-        T GetFirst() override{
-            return list->GetFirst();
+        void Append(const T& item) override {
+            list.Append(item);
         }
 
-        T GetLast() override{
-            return list->GetLast();
+        void Prepend (const T& item) override {
+            list.Prepend(item);
         }
 
-        Sequence<T>* GetSubsequence(int startIndex, int endIndex) override{
-            return (Sequence<T>*) (new LinkedListSequence<T>(*(list->GetSubList(startIndex, endIndex))));
+        void InsertAt(const T& item, int index) override{
+            list.InsertAt(item, index);
         }
 
-        int GetLength() override{
-            return list->GetLength();
-        }
-
-        int IndexOf(T item) override{
-            return list->IndexOf(item);
-        }
-
-        void Append(T item) override {
-            list->Append(item);
-        }
-
-        void Prepend (T item) override {
-            list->Prepend(item);
-        }
-
-        void InsertAt(T item, int index) override{
-            list->InsertAt(item, index);
-        }
-
-        void Set(int index, T item) override{
-            list->Set(index, item);
+        void Set(int index, const T& item) override{
+            list.Set(index, item);
         }
 
         void Swap(int i, int j) override{
@@ -75,13 +66,7 @@ class LinkedListSequence : public Sequence<T> {
             list->Set(j, tmp);
         }
 
-        Sequence<T>* Copy() override{
+        Sequence<T>* Copy() const override{
             return (Sequence<T>*) (new LinkedListSequence<T>(*this));
-        }
-
-        void print() override{
-            return list->print();
-        }
-
-        
+        }        
 };
