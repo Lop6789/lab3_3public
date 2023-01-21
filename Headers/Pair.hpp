@@ -26,5 +26,10 @@ class Pair{
         TElement& GetElement() const {
             return (TElement&)element;
         }
+        
+        bool operator ==(const Pair<TKey, TElement>& pair){
+            if (key==pair.key) return true;
+            else return false;
+        }
 
 };

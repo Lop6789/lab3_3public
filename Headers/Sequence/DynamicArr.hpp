@@ -117,11 +117,11 @@ class DynamicArray{
         }
 
         int IndexOf(const T& item) const {
-            // for (int i = 0 ; i<length; i++){
-            //     if (data[i] == item) return i;
-            // }
-            // return -1;
-            return true;
+            for (int i = 0 ; i<length; i++){
+                if (data[i] == item) return i;
+            }
+            return -1;
+            // return true;
         }
         //Sequence<T>* Concat(Sequence<T>* list) = 0;//
         

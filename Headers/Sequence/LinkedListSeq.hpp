@@ -53,7 +53,7 @@ class LinkedListSequence : public Sequence<T> {
         }
 
         void InsertAt(int index, const T& item) override{
-            list.InsertAt(item, index);
+            list.InsertAt(index, item);
         }
 
         void Set(int index, const T& item) override{
@@ -76,5 +76,9 @@ class LinkedListSequence : public Sequence<T> {
 
         Sequence<T>* Copy() const override{
             return (Sequence<T>*) (new LinkedListSequence<T>(*this));
-        }        
+        }
+
+        bool operator ==(const LinkedListSequence& lseq){
+            return true;
+        }
 };
