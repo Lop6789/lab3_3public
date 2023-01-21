@@ -66,6 +66,14 @@ class LinkedListSequence : public Sequence<T> {
             list.Set(j, tmp);
         }
 
+        void print(){
+            list.print();
+        }
+
+        void Delete(int index){
+            list.Delete(index);
+        }
+
         Sequence<T>* Copy() const override{
             return (Sequence<T>*) (new LinkedListSequence<T>(*this));
         }        

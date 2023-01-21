@@ -11,8 +11,9 @@ class Edge{
         int id;
         T weight;
         T data; 
-        Edge* start;
-        Edge* end;
+        // Vertex* start;
+        // Vertex* end;
+        int startId, int endId;
 
     public:
         int GetId() const {
@@ -31,6 +32,10 @@ class Vertex{
         int id;
 
     public:
+    
+    Vertex(){}
+
+    Vertex(int id){this->id = id;}
 
     int GetId() const {
         return id;
@@ -44,6 +49,8 @@ class IncList{
     private:
         IMap<Vertex<TV>, LinkedListSequence<Edge<TE>>>* map;
     public:
+
+        IncList(){map=nullptr;}
 
         IncList(IMap<Vertex<TV>, LinkedListSequence<TE>>* map){
             this->map = map;
@@ -67,9 +74,5 @@ class OrGrapgh{
         void Add(Pair<TV, TE> pair){
             inclist->Add(pair);
         }
-
-
-
-
 };
 

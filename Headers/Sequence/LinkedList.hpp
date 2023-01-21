@@ -177,18 +177,45 @@ class LinkedList {
 
             return -1;
         }
-        
 
-        void print() {
-            cout << "Length: " << length << endl;
-            cout << "[ ";
-            ListNode<T>* ptr = head;
-            for (int i = 0; i < length; i++) {
-                cout << ptr->data << " ";
-                ptr = ptr->next;
+        void Delete(int index){
+            if (length == 1){
+                delete head;
+                length --;
+                head = nullptr;
+                tail = nullptr;
+                return;
             }
 
-        cout << "]" << endl;
-    }
+            if (index == 0){
+                ListNode<T>* ptr = head->next;
+                delete head;
+                head = ptr;
+                length--;
+                return;
+            }
+
+            ListNode<T>* ptr = head;
+            ListNode<T>* ptr_prev = nullptr;
+            for (int i = 0; i < index; i++){
+                ptr_prev = ptr;
+                ptr = ptr->next;    
+            }
+            if (index == length-1){
+                ptr_prev->next = nullptr;
+                delete ptr;
+                ptr = nullptr;
+                tail = ptr_prev;
+                length --;
+                return;
+            }
+
+            if(ptr->next) ptr_prev->next = ptr->next;
+
+            delete ptr;
+            ptr = nullptr;
+            length--;
+
+        }
 };
         
