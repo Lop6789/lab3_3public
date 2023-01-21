@@ -28,6 +28,16 @@ int main(){
 
     Graph <int, int> g (cmp);
 
+    Vertex<int> v(13);
+
+    g.AddSingleVertex(v);
+
+    Sequence<int>* seq = g.GetVertexesIds();
+
+    // for (int i = 0; i < seq->GetLength(); i++){
+        // cout << seq->Get(i) << endl;
+    // }
+
     // IncList<int, int> graph(imap);
     
 
