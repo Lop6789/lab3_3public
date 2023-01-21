@@ -138,7 +138,7 @@ class LinkedList {
             }
         }
 
-        void InsertAt(const T& item, int index){
+        void InsertAt(int index, const T& item){
             if (index == 0){
                 Prepend(item);
                 return;

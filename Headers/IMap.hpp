@@ -1,4 +1,5 @@
 #pragma once
+#include "Sequence/Sequence.hpp"
 
 template <class TKey, class TElement>
 class IMap {

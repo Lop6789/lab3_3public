@@ -52,7 +52,7 @@ class LinkedListSequence : public Sequence<T> {
             list.Prepend(item);
         }
 
-        void InsertAt(const T& item, int index) override{
+        void InsertAt(int index, const T& item) override{
             list.InsertAt(item, index);
         }
 
@@ -61,9 +61,9 @@ class LinkedListSequence : public Sequence<T> {
         }
 
         void Swap(int i, int j) override{
-            T tmp = list->Get(i);
-            list->Set(i, Get(j));
-            list->Set(j, tmp);
+            T tmp = list.Get(i);
+            list.Set(i, Get(j));
+            list.Set(j, tmp);
         }
 
         Sequence<T>* Copy() const override{

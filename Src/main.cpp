@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../Headers/testHeaders.hpp"
+#include "../Headers/IncedenceList.hpp"
 
 using namespace std;
 
