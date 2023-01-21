@@ -47,7 +47,7 @@ class LinkedList {
             tail = ptr;
         }
 
-        LinkedList(LinkedList<T>& list){
+        LinkedList(const LinkedList<T>& list){
             length = list.length;
             head = new ListNode<T>(list.head->data);
 
@@ -75,15 +75,15 @@ class LinkedList {
             }
         }
 
-        T GetFirst(){
+        T& GetFirst() const {
             return head->data;
         }
 
-        T GetLast(){
+        T& GetLast() const {
             return tail->data;
         }
 
-        T Get (int index){
+        T& Get (int index) const {
             ListNode<T>* ptr = head;
             for (int i = 0; i < index; i++){
                 ptr = ptr->next;
@@ -91,11 +91,11 @@ class LinkedList {
             return ptr->data;
         }
 
-        int GetLength(){
+        int GetLength() const {
             return length;
         }
 
-        LinkedList<T>* GetSubList(int startIndex, int endIndex){
+        LinkedList<T>* GetSubList(int startIndex, int endIndex) const {
             LinkedList<T>* res = new LinkedList<T>();
             ListNode<T>* ptr_this = head;
 
@@ -111,7 +111,7 @@ class LinkedList {
         }
 
 
-        void Append(T item){
+        void Append(const T& item){
             if (length == 0){
                 head = new ListNode<T>(item);
                 tail = head;
@@ -124,7 +124,7 @@ class LinkedList {
             }
         }
 
-        void Prepend(T item){
+        void Prepend(const T& item){
             if (length == 0){
                 head = new ListNode<T>(item);
                 tail = head;
@@ -138,7 +138,7 @@ class LinkedList {
             }
         }
 
-        void InsertAt(T item, int index){
+        void InsertAt(const T& item, int index){
             if (index == 0){
                 Prepend(item);
                 return;
@@ -160,7 +160,7 @@ class LinkedList {
             ptr_new->next = ptr;
         }
 
-        void Set (int index, T item){
+        void Set (int index, const T& item){
             ListNode<T>* ptr = head;
             for (int i = 0; i < index; i++){
                 ptr = ptr->next;
@@ -168,7 +168,7 @@ class LinkedList {
             ptr->data = item;
         }
 
-        int IndexOf(T item){
+        int IndexOf(const T& item) const {
             ListNode<T>* ptr = head;
             for (int i = 0; i < length; i++){
                 if (ptr->data == item) return i;
@@ -178,8 +178,6 @@ class LinkedList {
             return -1;
         }
         
-
-
 
         void print() {
             cout << "Length: " << length << endl;

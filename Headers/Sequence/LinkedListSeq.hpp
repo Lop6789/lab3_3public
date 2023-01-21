@@ -13,9 +13,9 @@ class LinkedListSequence : public Sequence<T> {
 
         LinkedListSequence(T* items, int size) : list(items, size){}
 
-        LinkedListSequence(LinkedListSequence<T>& listseq) : list(listseq.list){}
+        LinkedListSequence(const LinkedListSequence<T>& listseq) : list(listseq.list){}
 
-        LinkedListSequence(LinkedList<T>& list) : list(list){}
+        LinkedListSequence(const LinkedList<T>& list) : list(list){}
 
         ~LinkedListSequence(){}
 
