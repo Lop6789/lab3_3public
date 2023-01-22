@@ -18,13 +18,13 @@ class Edge{
         Edge(){}
 
         Edge(int index, int startId, int endId){
-            this->id = id;
+            this->id = index;
             this->startId = startId;
             this->endId = endId;
         }
 
          Edge(int index, int startId, int endId, const T& data){
-            this->id = id;
+            this->id = index;
             this->startId = startId;
             this->endId = endId;
             this->data = data;
@@ -94,21 +94,21 @@ class Vertex{
 };
 
 template<class TE>
-class OptimalWay{
+class OptimalPath{
     private:
         TE length;
         Sequence<int>* way;
 
     public:
-        OptimalWay(){}
+        OptimalPath(){}
 
-        OptimalWay(Sequence<int>* way, TE length){
+        OptimalPath(Sequence<int>* way, TE length){
             this->length = length;
             this->way = way;
 
         }
 
-        ~OptimalWay(){
+        ~OptimalPath(){
             delete way;
         }
 
@@ -212,10 +212,10 @@ class Graph{
             }
         }
 
-        OptimalWay<TE>* Dijkstra(int vertexStartId, int vertexEndId ,const TE& NILL ,const TE& INF, int (*cmpTE)(const TE&, const TE&)){   
+        OptimalPath<TE>* Dijkstra(int vertexStartId, int vertexEndId ,const TE& NILL ,const TE& INF, int (*cmpTE)(const TE&, const TE&)){   
             int vertexesQty = GetVertexesQty();
 
-            Sequence<TE>* s = new ArraySequence<int>();
+            Sequence<TE>* s = new ArraySequence<TE>();
             Sequence<int>* p = new ArraySequence<int>();
             Sequence<bool>* used = new ArraySequence<bool>();
 
@@ -231,7 +231,6 @@ class Graph{
             //
             int v = 0;
             for (int i = 0; i < vertexesQty; i++){
-                // outSeq(s);
                 v = -1;
                 for (int j = 0; j < vertexesQty; j++){
                     if (!(used->Get(j)) && (v==-1 || cmpTE(s->Get(j), s->Get(v)) < 0))
@@ -249,7 +248,7 @@ class Graph{
             }
 
             int curr = vertexEndId - 1;
-            Sequence<TE>* out = new ArraySequence<int>;
+            Sequence<int>* out = new ArraySequence<int>;
 
             while (curr != vertexStartId - 1){
 
@@ -258,11 +257,11 @@ class Graph{
                 curr = p->Get(curr);
 
             }
-            out->Append(p->Get(vertexStartId+1));
+            out->Append(vertexStartId);
 
             
 
-            OptimalWay<TE>* res = new OptimalWay<TE>(out, s->Get(vertexEndId-1));
+            OptimalPath<TE>* res = new OptimalPath<TE>(out, s->Get(vertexEndId-1));
 
             delete p; 
             delete s; 
@@ -278,8 +277,6 @@ class Graph{
 
         for (int i = 0; i < GetVertexesQty(); i++){
             checkedVertexesIds->Append(false);
-            // cout << "WHAT" << i << endl;
-            // cout << "QTY: " <<GetVertexesQty() << endl;
         }
 
         while(checkedVertexesIds->Contains(false)){
@@ -292,7 +289,7 @@ class Graph{
             queue.Append(uncheckedVertexId);
             
             while(queue.GetLength()){
-                // cout << queue.GetLength() << endl; 
+
                 Sequence<int>* adjVertexes = GetAdjVertIds(queue.Get(0));
                 for (int i = 0; i < adjVertexes->GetLength(); i++){
                     if (!checkedVertexesIds->Get(adjVertexes->Get(i) - 1)){
@@ -303,7 +300,7 @@ class Graph{
                 conComponent->Append(queue.Get(0));
                 queue.Delete(0);
                 delete adjVertexes;
-                // cout << queue.GetLength() << endl;
+
             }
 
             result->Append(conComponent);

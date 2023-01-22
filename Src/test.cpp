@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void print_int_graph(const Graph<int, int>& g);
+void print_int_graph(const Graph<int, int>& graph);
 void print_list(const LinkedListSequence<Edge<int>>& lseq);
 void print_list_int(const LinkedListSequence<int>& lseq);
 void print_seq(Sequence<int>* seq);
@@ -19,15 +19,9 @@ int cmpTE(const int& i1, const int& i2){
     return i1 - i2;
 }
 
-int main(){
-    int a[] ={1,2,3,4,5,6,7,8,9};
-    LinkedListSequence list(a, 9);
-    // cout << "INDEXOF" <<  list.IndexOf(1) << endl;
+int test2(){
 
-    print_list_int(list);
-    
-
-    Graph <int, int> g (cmp);
+    Graph <int, int> graph (cmp);
 
     Vertex<int> v1(1);
     Vertex<int> v2(2);
@@ -36,36 +30,36 @@ int main(){
     Vertex<int> v5(5);
 
     Edge<int> e1(1, 1, 2, 1);
-    Edge<int> e2(2, 2, 3, 1);
+    Edge<int> e2(2, 2, 3, 2);
     Edge<int> e3(3, 3, 4, 1);
     Edge<int> e4(4, 4, 1, 1);
     Edge<int> e5(5, 1, 5, 100);
 
-    g.AddSingleVertex(v1);
-    g.AddSingleVertex(v2);
-    g.AddSingleVertex(v3);
-    g.AddSingleVertex(v4);
-    g.AddSingleVertex(v5);
-    g.AddEdge(1, e1);
-    g.AddEdge(2, e2);
-    g.AddEdge(3, e3);
-    g.AddEdge(4, e4);
-    // g.AddEdge(1, e5);
+    graph.AddSingleVertex(v1);
+    graph.AddSingleVertex(v2);
+    graph.AddSingleVertex(v3);
+    graph.AddSingleVertex(v4);
+    graph.AddSingleVertex(v5);
+    graph.AddEdge(1, e1);
+    graph.AddEdge(2, e2);
+    graph.AddEdge(3, e3);
+    graph.AddEdge(4, e4);
+    // graph.AddEdge(1, e5);
 
-    print_int_graph(g);
+    print_int_graph(graph);
 
 
-    Sequence<int>* seq = g.GetVertexesIds();
+    Sequence<int>* seq = graph.GetVertexesIds();
 
     // for (int i = 0; i < seq->GetLength(); i++){
     //     cout << seq->Get(i) << endl;
     // }
 
-    // g.Dijkstra(1, 5, 0, 999, cmpTE);
-    // OptimalWay<int>* way = g.Dijkstra(1, 5, 0, 999, cmpTE);
-    // cout << "Length:" << g.Dijkstra(1, 5, 0, 999, cmpTE)->GetLength() << endl;
-    // for (int i = 0; i < g.Dijkstra(1, 5, 0, 999, cmpTE)->GetWay()->GetLength(); i++){
-    //     cout << g.Dijkstra(1, 5, 0, 999, cmpTE)->GetWay()->Get(i) << '-';
+    // graph.Dijkstra(1, 5, 0, 999, cmpTE);
+    // OptimalPath<int>* way = graph.Dijkstra(1, 5, 0, 999, cmpTE);
+    // cout << "Length:" << graph.Dijkstra(1, 5, 0, 999, cmpTE)->GetLength() << endl;
+    // for (int i = 0; i < graph.Dijkstra(1, 5, 0, 999, cmpTE)->GetWay()->GetLength(); i++){
+    //     cout << graph.Dijkstra(1, 5, 0, 999, cmpTE)->GetWay()->Get(i) << '-';
     // }
 
     // cout << way->GetLength() << endl;
@@ -74,7 +68,7 @@ int main(){
         // cout << way->GetWay()->Get(i) <<  "-" ;
     // }
 
-    Sequence<Sequence<int>*>*  cc = g.GetConnectedComponents();
+    Sequence<Sequence<int>*>*  cc = graph.GetConnectedComponents();
     print_seqseq(cc);
     // for (int i = 0; i < cc->GetLength(); i++){
     //     for (int j = 0; cc->Get(i)->GetLength(); j++){
@@ -90,20 +84,87 @@ int main(){
     return 0;
 }
 
+int test1(){
+    Graph <int, int> graph (cmp);
+
+    Vertex<int> v1(1);
+    Vertex<int> v2(2);
+    Vertex<int> v3(3);
+    Vertex<int> v4(4);
+    Vertex<int> v5(5);
+
+    Edge<int> e1(1, 1, 2, 1);
+    Edge<int> e2(2, 2, 3, 2);
+    Edge<int> e3(3, 3, 4, 1);
+    Edge<int> e4(4, 4, 1, 1);
+    Edge<int> e5(5, 1, 5, 100);
+
+    graph.AddSingleVertex(v1);
+    graph.AddSingleVertex(v2);
+    graph.AddSingleVertex(v3);
+    graph.AddSingleVertex(v4);
+    graph.AddSingleVertex(v5);
+    graph.AddEdge(1, e1);
+    graph.AddEdge(2, e2);
+    graph.AddEdge(3, e3);
+    graph.AddEdge(4, e4);
+    graph.AddEdge(1, e5);
+
+    print_int_graph(graph);
+
+    return 0;
+}
 
 
+int test3(int startId, int endId){
+
+    Graph <int, int> graph (cmp);
+
+    Vertex<int> v1(1);
+    Vertex<int> v2(2);
+    Vertex<int> v3(3);
+    Vertex<int> v4(4);
+    Vertex<int> v5(5);
+
+    Edge<int> e1(1, 1, 2, 1);
+    Edge<int> e2(2, 2, 3, 2);
+    Edge<int> e3(3, 3, 4, 1);
+    Edge<int> e4(4, 4, 1, 1);
+    Edge<int> e5(5, 1, 5, 100);
+
+    graph.AddSingleVertex(v1);
+    graph.AddSingleVertex(v2);
+    graph.AddSingleVertex(v3);
+    graph.AddSingleVertex(v4);
+    graph.AddSingleVertex(v5);
+    graph.AddEdge(1, e1);
+    graph.AddEdge(2, e2);
+    graph.AddEdge(3, e3);
+    graph.AddEdge(4, e4);
+    graph.AddEdge(1, e5);
+
+    print_int_graph(graph);
+
+    OptimalPath<int>* way = graph.Dijkstra(startId, endId, 0, 1000000, cmpTE);
+
+    cout << "Length: " << way->GetLength() << endl;
+    cout << "Route: ";
+    print_seq(way->GetWay());
 
 
+    delete way;
+    return 0;
+}
 
 
-
-void print_int_graph(const Graph<int, int>& g){
-    Sequence<int>* vId = g.GetVertexesIds();
+void print_int_graph(const Graph<int, int>& graph){
+    Sequence<int>* vId = graph.GetVertexesIds();
+    cout << endl;
     for (int i = 0; i < vId->GetLength(); i++){
         cout << "[" << vId->Get(i) << "]";
         cout << "--->";
-        print_list(g.GetEdges(vId->Get(i)));
-        cout << endl;
+        print_list(graph.GetEdges(vId->Get(i)));
+        cout << endl << endl;
     }
     delete vId;
 }
@@ -111,6 +172,11 @@ void print_int_graph(const Graph<int, int>& g){
 void print_list(const LinkedListSequence<Edge<int>>& lseq){
     // cout << lseq.GetLength() << endl;
     if (lseq.GetLength() == 0) {cout << "[NULL]"; return;}
+
+
+
+
+
     else {
         cout << "[ ";
             for (int i = 0; i < lseq.GetLength(); i++) {
