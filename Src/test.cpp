@@ -35,19 +35,19 @@ int main(){
     Vertex<int> v3(3);
     Vertex<int> v4(4);
 
-    Edge<int> e1(1,2);
-    Edge<int> e2(2,3);
-    Edge<int> e3(3,4);
-    Edge<int> e4(4,1);
+    Edge<int> e1(1, 1, 2);
+    Edge<int> e2(2, 2, 3);
+    Edge<int> e3(3, 3, 4);
+    Edge<int> e4(4, 4, 1);
 
-    g.AddSingleVertex(1);
-    g.AddSingleVertex(2);
-    g.AddSingleVertex(3);
-    g.AddSingleVertex(4);
+    g.AddSingleVertex(v1);
+    g.AddSingleVertex(v2);
+    g.AddSingleVertex(v3);
+    g.AddSingleVertex(v4);
     g.AddEdge(1, e1);
-    g.AddEdge(1, e2);
-    g.AddEdge(2, e3);
-    g.AddEdge(2, e4);
+    g.AddEdge(2, e2);
+    g.AddEdge(3, e3);
+    g.AddEdge(4, e4);
 
     print_int_graph(g);
 
@@ -82,11 +82,12 @@ void print_int_graph(const Graph<int, int>& g){
 }
 
 void print_list(const LinkedListSequence<Edge<int>>& lseq){
+    // cout << lseq.GetLength() << endl;
     if (lseq.GetLength() == 0) {cout << "[NULL]"; return;}
     else {
         cout << "[ ";
             for (int i = 0; i < lseq.GetLength(); i++) {
-                cout << lseq.Get(i).GetStartId() << " "<< lseq.Get(i).GetEndId() << " ";
+                cout << lseq.Get(i).GetStartId() << ","<< lseq.Get(i).GetEndId() << " ";
             }
         cout << "]" << endl;
     }
