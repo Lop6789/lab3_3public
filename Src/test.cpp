@@ -55,13 +55,19 @@ int main(){
     // }
 
     // g.Dijkstra(1, 5, 0, 999, cmpTE);
-    cout << "Length:" << g.Dijkstra(1, 5, 0, 999, cmpTE)->GetLength() << endl;
+    OptimalWay<int>* way = g.Dijkstra(1, 5, 0, 999, cmpTE);
+    // cout << "Length:" << g.Dijkstra(1, 5, 0, 999, cmpTE)->GetLength() << endl;
     // for (int i = 0; i < g.Dijkstra(1, 5, 0, 999, cmpTE)->GetWay()->GetLength(); i++){
     //     cout << g.Dijkstra(1, 5, 0, 999, cmpTE)->GetWay()->Get(i) << '-';
     // }
 
+    cout << way->GetLength() << endl;
+    cout << way->GetWay()->GetLength() << endl;
+    for (int i = 0; i < way->GetWay()->GetLength(); i++){
+        cout << way->GetWay()->Get(i) <<  "-" ;
+    }
     
-
+    delete way;
     delete seq;
     return 0;
 }
