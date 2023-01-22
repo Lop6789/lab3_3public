@@ -7,6 +7,7 @@ using namespace std;
 
 void print_int_graph(const Graph<int, int>& g);
 void print_list(const LinkedListSequence<Edge<int>>& lseq);
+void print_list_int(const LinkedListSequence<int>& lseq);
 
 int cmp (const Pair<Vertex<int>, LinkedListSequence<Edge<int>>>& p1, const Pair<Vertex<int>, LinkedListSequence<Edge<int>>>& p2){
     return p1.GetKey().GetId() - p2.GetKey().GetId();
@@ -19,6 +20,14 @@ int cmpTE(const int& i1, const int& i2){
 int main(){
     int a[] ={1,2,3,4,5,6,7,8,9};
     LinkedListSequence list(a, 9);
+    list.Delete(0);
+    list.Delete(0);
+    list.Delete(0);
+    list.Delete(0);
+    list.Delete(0);
+    
+    print_list_int(list);
+    return 0;
 
     Graph <int, int> g (cmp);
 
@@ -66,11 +75,25 @@ int main(){
     for (int i = 0; i < way->GetWay()->GetLength(); i++){
         cout << way->GetWay()->Get(i) <<  "-" ;
     }
+
+    Sequence<Sequence<int>*>*  cc = g.FindConnectedComponents();
+    for (int i = 0; i < cc->GetLength(); i++){
+        for (int j = 0; cc->Get(i)->GetLength(); j++){
+            cout << cc->Get(i)->Get(j) << '-' ;
+        }
+    }
     
     delete way;
     delete seq;
     return 0;
 }
+
+
+
+
+
+
+
 
 void print_int_graph(const Graph<int, int>& g){
     Sequence<int>* vId = g.GetVertexesIds();
@@ -90,6 +113,18 @@ void print_list(const LinkedListSequence<Edge<int>>& lseq){
         cout << "[ ";
             for (int i = 0; i < lseq.GetLength(); i++) {
                 cout << "(" << lseq.Get(i).GetStartId() << ","<< lseq.Get(i).GetEndId() << "," << lseq.Get(i).GetData() << ") " ;
+            }
+        cout << "]" << endl;
+    }
+}
+
+void print_list_int(const LinkedListSequence<int>& lseq){
+    // cout << lseq.GetLength() << endl;
+    if (lseq.GetLength() == 0) {cout << "[NULL]"; return;}
+    else {
+        cout << "[ ";
+            for (int i = 0; i < lseq.GetLength(); i++) {
+                cout <<lseq.Get(i)  << " " ;
             }
         cout << "]" << endl;
     }
