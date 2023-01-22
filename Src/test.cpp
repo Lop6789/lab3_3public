@@ -8,6 +8,8 @@ using namespace std;
 void print_int_graph(const Graph<int, int>& g);
 void print_list(const LinkedListSequence<Edge<int>>& lseq);
 void print_list_int(const LinkedListSequence<int>& lseq);
+void print_seq(Sequence<int>* seq);
+void print_seqseq(const Sequence<Sequence<int>*>* seq);
 
 int cmp (const Pair<Vertex<int>, LinkedListSequence<Edge<int>>>& p1, const Pair<Vertex<int>, LinkedListSequence<Edge<int>>>& p2){
     return p1.GetKey().GetId() - p2.GetKey().GetId();
@@ -20,14 +22,10 @@ int cmpTE(const int& i1, const int& i2){
 int main(){
     int a[] ={1,2,3,4,5,6,7,8,9};
     LinkedListSequence list(a, 9);
-    list.Delete(0);
-    list.Delete(0);
-    list.Delete(0);
-    list.Delete(0);
-    list.Delete(0);
-    
+    // cout << "INDEXOF" <<  list.IndexOf(1) << endl;
+
     print_list_int(list);
-    return 0;
+    
 
     Graph <int, int> g (cmp);
 
@@ -52,7 +50,7 @@ int main(){
     g.AddEdge(2, e2);
     g.AddEdge(3, e3);
     g.AddEdge(4, e4);
-    g.AddEdge(1, e5);
+    // g.AddEdge(1, e5);
 
     print_int_graph(g);
 
@@ -64,26 +62,30 @@ int main(){
     // }
 
     // g.Dijkstra(1, 5, 0, 999, cmpTE);
-    OptimalWay<int>* way = g.Dijkstra(1, 5, 0, 999, cmpTE);
+    // OptimalWay<int>* way = g.Dijkstra(1, 5, 0, 999, cmpTE);
     // cout << "Length:" << g.Dijkstra(1, 5, 0, 999, cmpTE)->GetLength() << endl;
     // for (int i = 0; i < g.Dijkstra(1, 5, 0, 999, cmpTE)->GetWay()->GetLength(); i++){
     //     cout << g.Dijkstra(1, 5, 0, 999, cmpTE)->GetWay()->Get(i) << '-';
     // }
 
-    cout << way->GetLength() << endl;
-    cout << way->GetWay()->GetLength() << endl;
-    for (int i = 0; i < way->GetWay()->GetLength(); i++){
-        cout << way->GetWay()->Get(i) <<  "-" ;
-    }
+    // cout << way->GetLength() << endl;
+    // cout << way->GetWay()->GetLength() << endl;
+    // for (int i = 0; i < way->GetWay()->GetLength(); i++){
+        // cout << way->GetWay()->Get(i) <<  "-" ;
+    // }
 
-    Sequence<Sequence<int>*>*  cc = g.FindConnectedComponents();
+    Sequence<Sequence<int>*>*  cc = g.GetConnectedComponents();
+    print_seqseq(cc);
+    // for (int i = 0; i < cc->GetLength(); i++){
+    //     for (int j = 0; cc->Get(i)->GetLength(); j++){
+    //         cout << cc->Get(i)->Get(j) << '-' ;
+    //     }
+    // }
     for (int i = 0; i < cc->GetLength(); i++){
-        for (int j = 0; cc->Get(i)->GetLength(); j++){
-            cout << cc->Get(i)->Get(j) << '-' ;
-        }
+        delete  cc->Get(i);
     }
-    
-    delete way;
+    delete cc;
+    // delete way;
     delete seq;
     return 0;
 }
@@ -127,6 +129,27 @@ void print_list_int(const LinkedListSequence<int>& lseq){
                 cout <<lseq.Get(i)  << " " ;
             }
         cout << "]" << endl;
+    }
+}
+
+void print_seq(Sequence<int>* seq) {
+    if (seq->GetLength() == 0) {
+        cout << "NULL" << endl;
+        return;
+    }
+        cout << "{";
+        for (int i = 0; i < seq->GetLength(); i++){
+            cout << seq->Get(i) << " ";
+        }
+        cout << "}" << endl;
+}
+void print_seqseq(const Sequence<Sequence<int>*>* seq) {
+    if (seq->GetLength() == 0) {
+        cout << "NULL" << endl;
+        return;
+    }
+    for (int i = 0; i < seq->GetLength(); i++){
+        print_seq(seq->Get(i));
     }
 }
 
