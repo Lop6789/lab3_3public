@@ -217,5 +217,22 @@ class LinkedList {
             length--;
 
         }
+
+        LinkedList& operator =(const LinkedList& list){
+            if (list.GetLength() == 0) return *this;
+            length = list.length;
+            head = new ListNode<T>(list.head->data);
+
+            ListNode<T>* ptr_this = head;
+            ListNode<T>* ptr_other = list.head;
+
+            for (int i = 1; i < length; i++){
+                ptr_this->next = new ListNode<T>(ptr_other->next->data);
+                ptr_this = ptr_this->next;
+                ptr_other = ptr_other->next;
+            }
+            tail = ptr_this;
+            return *this;
+        }
 };
         

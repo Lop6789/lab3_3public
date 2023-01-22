@@ -81,4 +81,9 @@ class LinkedListSequence : public Sequence<T> {
         bool operator ==(const LinkedListSequence& lseq){
             return true;
         }
+
+        LinkedListSequence& operator =(const LinkedListSequence& lseq){
+            list = lseq.list;
+            return *this;
+        }
 };
