@@ -12,6 +12,10 @@ int cmp (const Pair<Vertex<int>, LinkedListSequence<Edge<int>>>& p1, const Pair<
     return p1.GetKey().GetId() - p2.GetKey().GetId();
 }
 
+int cmpTE(const int& i1, const int& i2){
+    return i1 - i2;
+}
+
 int main(){
     int a[] ={1,2,3,4,5,6,7,8,9};
     LinkedListSequence list(a, 9);
@@ -73,74 +77,3 @@ void print_list(const LinkedListSequence<Edge<int>>& lseq){
     }
 }
 
-// void init (int Vert){
-    // for 
-// }
-// Sequence<int>* s;
-// Sequence<int>* p;
-// Sequence<bool>* used;
-// // int s[] = {}
-// // int d[] = {}; // расстояния 
-// const int INF = 1000000;
-
-// void Dijkstra(int vertexesQty, int vertexStartId){
-
-//     s = new ArraySequence<int>();
-//     p = new ArraySequence<int>();
-//     used = new ArraySequence<bool>();
-//     //INIT:
-//     for (int i = 0; i < vertexesQty; i++){
-//         s->Append(INF);
-//         p->Append(-1);
-//         used->Append(false);
-//     }
-//     s->Set(vertexStartId, 0);
-//     p->Set(vertexStartId, vertexStartId);
-//     //ALGO:
-
-//     for (int i = 0; i < vertexesQty; i++){
-//         int v = -1;
-//         for (int j = 0; j < vertexesQty; j++){
-//            if (!(used->Get(j)) && (v == -1 || (s->Get(j) < s->Get(v)))){
-//                 v = j;
-//            } 
-
-//            if (s->Get(v) == INF) break;
-//            used->Set(v, true);
-//            //смежные вершины
-//            //
-
-//         }
-//     }
-
-
-// Sequence<int>* dist;
-// Sequence<int>* p;
-// Sequence<bool>* use;
-
-// void  Dekstra(int vertexesQty, int vertexStartId, const Graph<int,int>& graph) {
-//     dist = new ArraySequence<int>();
-//     use = new ArraySequence<bool>();
-
-//     for (int i = 0; i < vertexesQty; i++){
-//         dist->Append(INF);
-//         use->Append(false);
-//     }
-
-//     dist->Set(vertexStartId, 0);
-
-//     for (int i = 0; i < vertexesQty; i++){
-//         v = -1;
-//         for (int j = 0; j < vertexesQty; j++){
-//             if (!(use->Get(j)) && v==-1 || (dist->Get(j) < dist->Get(v)));
-//                 v = j;
-//         }
-//         if (dist->Get(v) == INF) break;
-//         use->Set(v, true);
-        
-        
-//         Sequence<int>* adjVertexes = graph.GetAdjVert
-//     }
-
-
-// }
