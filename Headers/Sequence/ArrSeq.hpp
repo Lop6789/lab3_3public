@@ -93,4 +93,13 @@ class ArraySequence : public Sequence <T>{
         }
         //Sequence<T>* Concat(Sequence<T>* list) = 0;//
         
+
+        bool Contains(const T& item) const override {
+            for (int i = 0; i < arr.GetLength(); i++){
+                if (arr.Get(i) == item) return true;
+            }
+
+            return false;
+        }
+
 };

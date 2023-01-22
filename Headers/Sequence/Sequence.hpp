@@ -25,6 +25,7 @@ public:
     virtual Sequence<T>* GetSubsequence(int startIndex, int endIndex) const = 0;
     virtual Sequence<T>* Copy() const = 0;
     virtual int IndexOf(const T& item) const = 0;
+    virtual bool Contains(const T& item) const = 0;
 
     //virtual Sequence<T>* Concat(Sequence<T>* list) = 0;
 

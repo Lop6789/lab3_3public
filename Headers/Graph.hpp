@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "../Headers/AVLMap.hpp"
 #include "../Headers/Pair.hpp"
 #include "../Headers/Sequence/LinkedListSeq.hpp"
@@ -12,8 +13,6 @@ class Edge{
         T data; 
         int startId; 
         int endId;
-        // Vertex* start;
-        // Vertex* end;
 
     public:
         Edge(){}
@@ -97,8 +96,29 @@ class Vertex{
 template<class TE>
 class OptimalWay{
     private:
-        TE weight;
+        TE length;
         Sequence<int>* way;
+
+    public:
+        OptimalWay(){}
+
+        OptimalWay(Sequence<int>* way, TE length){
+            this->length = length;
+            this->way = way;
+
+        }
+
+        ~OptimalWay(){
+            delete way;
+        }
+
+        const TE& GetLength() const {
+           return length; 
+        }
+        
+        Sequence<int>* GetWay(){
+            return way;
+        }
 };
 
 
@@ -167,36 +187,37 @@ class Graph{
             Vertex<TV> vertex(vertexId);
             
             for (int i = 0; i < map->Get(vertex).GetLength(); i++)
-                adjVertSeq->Append(map->Get(vertex).Get(i).GetEdgeEndVertexId());
+                adjVertSeq->Append(map->Get(vertex).Get(i).GetEndId());
 
             return adjVertSeq;
         }
 
-        const TE* GetEdgeData(int startVertexId, int endVertexId){
+        const TE& GetEdgeData(int startVertexId, int endVertexId){
             Vertex<TV> vertex(startVertexId);
             int res = 0;
             for (int i = 0; i < map->Get(vertex).GetLength(); i++){
-                if (endVertexId == map->Get(vertex).Get(i).GetEdgeVertexId()){
+                if (endVertexId == map->Get(vertex).Get(i).GetEndId()){
                     res = i;
                 }
             }
-            return map->Get(vertex).Get(res).GetEdgeData();
+            return map->Get(vertex).Get(res).GetData();
         }
 
 
-        void relax(Sequence<int>* s, Sequence<int>* p,int u, int v, int w){
-            if (s->Get(v) > s->Get(u) + w){
+
+        void relax(Sequence<TE>* s, Sequence<int>* p,int u, int v, int w, int (*cmpTE)(const TE&, const TE&)){
+            if (cmpTE(s->Get(v), s->Get(u) + w) > 0){
                 s->Set(v, s->Get(u) + w);
                 p->Set(v, u);
             }
         }
 
-        OptimalWay<TE>* Dijkstra(int vertexStartId, const TE& INF){   
+        OptimalWay<TE>* Dijkstra(int vertexStartId, int vertexEndId ,const TE& NILL ,const TE& INF, int (*cmpTE)(const TE&, const TE&)){   
             int vertexesQty = GetVertexesQty();
 
-            Sequence<int>* s = new ArraySequence<int>();
+            Sequence<TE>* s = new ArraySequence<int>();
             Sequence<int>* p = new ArraySequence<int>();
-            Sequence<int>* used = new ArraySequence<bool>();
+            Sequence<bool>* used = new ArraySequence<bool>();
 
             //INIT
             for (int i = 0; i < vertexesQty; i++){
@@ -205,14 +226,15 @@ class Graph{
                 used->Append(false);
             }
 
-            s->Set(vertexStartId - 1, 0); //Start point
-            p->Set(vertexStartId-1, vertexStartId);
+            s->Set(vertexStartId - 1, NILL); //Start point
+            p->Set(vertexStartId-1, vertexStartId-1);
             //
             int v = 0;
             for (int i = 0; i < vertexesQty; i++){
+                // outSeq(s);
                 v = -1;
                 for (int j = 0; j < vertexesQty; j++){
-                    if (!(used->Get(j)) && (v==-1 || (s->Get(j) < s->Get(v))))
+                    if (!(used->Get(j)) && (v==-1 || cmpTE(s->Get(j), s->Get(v)) < 0))
                         v = j;
                 }
 
@@ -221,11 +243,80 @@ class Graph{
 
                 Sequence<int>* adjVertexes = GetAdjVertIds(v+1);
                 for (int i = 0; i < adjVertexes->GetLength(); i++){
-                    relax(s, p, v, adjVertexes->Get(i) - 1, GetEdgeData(v+1, adjVertexes->Get(i)));
+                    relax(s, p, v, adjVertexes->Get(i) - 1, GetEdgeData(v+1, adjVertexes->Get(i)), cmpTE);
                 }
+            delete adjVertexes;
+            }
+
+            int curr = vertexEndId - 1;
+            Sequence<TE>* out = new ArraySequence<int>;
+
+            while (curr != vertexStartId - 1){
+
+        
+                out->Append(curr+1);
+                curr = p->Get(curr);
+
+            }
+            out->Append(p->Get(vertexStartId+1));
+
+            
+
+            OptimalWay<TE>* res = new OptimalWay<TE>(out, s->Get(vertexEndId-1));
+
+            delete p; 
+            delete s; 
+            delete used;
+
+            return res;
+}
+
+    Sequence<Sequence<int>*>* GetConnectedComponents(){
+
+        Sequence<Sequence<int>*>* result = new ArraySequence<Sequence<int>*>();
+        Sequence<bool>* checkedVertexesIds = new ArraySequence<bool>();
+
+        for (int i = 0; i < GetVertexesQty(); i++){
+            checkedVertexesIds->Append(false);
+            // cout << "WHAT" << i << endl;
+            // cout << "QTY: " <<GetVertexesQty() << endl;
+        }
+
+        while(checkedVertexesIds->Contains(false)){
+            Sequence<int>* conComponent = new ArraySequence<int>();
+
+            int uncheckedVertexId = checkedVertexesIds->IndexOf(false) + 1;
+            checkedVertexesIds->Set(uncheckedVertexId-1, true);
+
+            LinkedListSequence<int> queue;
+            queue.Append(uncheckedVertexId);
+            
+            while(queue.GetLength()){
+                // cout << queue.GetLength() << endl; 
+                Sequence<int>* adjVertexes = GetAdjVertIds(queue.Get(0));
+                for (int i = 0; i < adjVertexes->GetLength(); i++){
+                    if (!checkedVertexesIds->Get(adjVertexes->Get(i) - 1)){
+                        queue.Append(adjVertexes->Get(i));
+                        checkedVertexesIds->Set(adjVertexes->Get(i)-1, true);
+                    }
+                }
+                conComponent->Append(queue.Get(0));
+                queue.Delete(0);
+                delete adjVertexes;
+                // cout << queue.GetLength() << endl;
+            }
+
+            result->Append(conComponent);
+        }
+        delete checkedVertexesIds;
+        return result;
+
+        
+        
+
     }
 
+    
 
-}
 };
 

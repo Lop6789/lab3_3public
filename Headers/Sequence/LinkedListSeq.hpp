@@ -86,4 +86,12 @@ class LinkedListSequence : public Sequence<T> {
             list = lseq.list;
             return *this;
         }
+
+        bool Contains(const T& item) const override {
+            for (int i = 0; i < list.GetLength(); i++){
+                if (list.Get(i) == item) return true;
+            }
+
+            return false;
+        }
 };
