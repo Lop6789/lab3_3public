@@ -212,7 +212,7 @@ class Graph{
             }
         }
 
-        OptimalPath<TE>* Dijkstra(int vertexStartId, int vertexEndId ,const TE& NILL ,const TE& INF, int (*cmpTE)(const TE&, const TE&)){   
+        OptimalPath<TE>* Dijkstra(int vertexStartId, int vertexEndId ,const TE& ZERO ,const TE& INF, int (*cmpTE)(const TE&, const TE&)){   
             int vertexesQty = GetVertexesQty();
 
             Sequence<TE>* s = new ArraySequence<TE>();
@@ -226,7 +226,7 @@ class Graph{
                 used->Append(false);
             }
 
-            s->Set(vertexStartId - 1, NILL); //Start point
+            s->Set(vertexStartId - 1, ZERO); //Start point
             p->Set(vertexStartId-1, vertexStartId-1);
             //
             int v = 0;

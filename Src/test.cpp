@@ -51,30 +51,9 @@ int test2(){
 
     Sequence<int>* seq = graph.GetVertexesIds();
 
-    // for (int i = 0; i < seq->GetLength(); i++){
-    //     cout << seq->Get(i) << endl;
-    // }
-
-    // graph.Dijkstra(1, 5, 0, 999, cmpTE);
-    // OptimalPath<int>* way = graph.Dijkstra(1, 5, 0, 999, cmpTE);
-    // cout << "Length:" << graph.Dijkstra(1, 5, 0, 999, cmpTE)->GetLength() << endl;
-    // for (int i = 0; i < graph.Dijkstra(1, 5, 0, 999, cmpTE)->GetWay()->GetLength(); i++){
-    //     cout << graph.Dijkstra(1, 5, 0, 999, cmpTE)->GetWay()->Get(i) << '-';
-    // }
-
-    // cout << way->GetLength() << endl;
-    // cout << way->GetWay()->GetLength() << endl;
-    // for (int i = 0; i < way->GetWay()->GetLength(); i++){
-        // cout << way->GetWay()->Get(i) <<  "-" ;
-    // }
-
     Sequence<Sequence<int>*>*  cc = graph.GetConnectedComponents();
     print_seqseq(cc);
-    // for (int i = 0; i < cc->GetLength(); i++){
-    //     for (int j = 0; cc->Get(i)->GetLength(); j++){
-    //         cout << cc->Get(i)->Get(j) << '-' ;
-    //     }
-    // }
+
     for (int i = 0; i < cc->GetLength(); i++){
         delete  cc->Get(i);
     }
